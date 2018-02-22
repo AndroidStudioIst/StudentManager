@@ -1,0 +1,16 @@
+//apply from: 'key.gradle'
+
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        angcyo {
+            keyAlias 'oapp'
+            keyPassword 'angcyo'
+            storeFile file('../RLibrary/angcyo.jks')
+            storePassword 'angcyo'
+        }
+    }
+}
+
+apply from: '../RLibrary/app.gradle'
