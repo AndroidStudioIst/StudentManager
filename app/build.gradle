@@ -1,1 +1,6 @@
 apply from: 'key.gradle'
+
+dependencies {
+    implementation project(':RBmob')
+    implementation project(':RLibrary:uiview')
+}
