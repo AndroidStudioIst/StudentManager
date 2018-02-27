@@ -1,5 +1,6 @@
 package com.student.manager
 
+import com.angcyo.bmob.RBmob
 import com.angcyo.uiview.RApplication
 
 /**
@@ -16,5 +17,6 @@ import com.angcyo.uiview.RApplication
 class App : RApplication() {
     override fun onInit() {
         super.onInit()
+        RBmob.init(this, BuildConfig.DEBUG)
     }
 }

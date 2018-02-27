@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="40dp"
+        android:paddingEnd="@dimen/base_xhdpi"
+        android:paddingStart="@dimen/base_xhdpi"
+        android:paddingTop="20dp">
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:id="@+id/name_view"
+            style="@style/MainEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="12"
+            app:r_left_text="用户名:"/>
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:id="@+id/pw_view"
+            style="@style/MainEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:inputType="textWebPassword"
+            android:maxLength="20"
+            app:r_left_text="密码:"/>
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:id="@+id/pw_view2"
+            style="@style/MainEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:inputType="textWebPassword"
+            android:maxLength="20"
+            app:r_left_text="确认密码:"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/class_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:visibility="gone">
+
+            <com.angcyo.uiview.widget.ExEditText
+                android:id="@+id/class_view"
+                style="@style/MainEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="20"
+                app:r_left_text="班级名:"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/user_type"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_35dpi"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:background="@color/base_chat_bg_color"
+            android:paddingStart="@dimen/base_xhdpi"
+            android:text="请选择身份"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/register_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="立即注册"
+            app:r_button_style="ROUND_GRADIENT_RECT"/>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/base_xhdpi"
+        android:paddingStart="@dimen/base_xhdpi"
+        android:paddingTop="30dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/logo"/>
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:id="@+id/name_view"
+            style="@style/MainEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:maxLength="12"
+            app:r_left_text="账户:"/>
+
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:id="@+id/pw_view"
+            style="@style/MainEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_xxhdpi"
+            android:inputType="textWebPassword"
+            android:maxLength="20"
+            app:r_left_text="密码:"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_xxhdpi">
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/auto_login_cb"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="自动登录"/>
+
+            <TextView
+                android:id="@+id/register_button"
+                style="@style/BaseSingleMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@drawable/base_bg_selector_v21"
+                android:padding="@dimen/base_ldpi"
+                android:text="立即注册"/>
+
+        </FrameLayout>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/login_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="登录"
+            app:r_button_style="ROUND_GRADIENT_RECT"/>
+
+    </LinearLayout>
+
+</FrameLayout>
