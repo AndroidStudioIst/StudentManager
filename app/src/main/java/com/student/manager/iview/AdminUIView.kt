@@ -38,7 +38,9 @@ class AdminUIView : BaseItemUIView() {
     private fun loadAdminLayout(holder: RBaseViewHolder) {
         holder.tv(R.id.button_11).apply {
             text = "考勤管理"
-            clickIt { }
+            clickIt {
+                startIView(CheckUIView())
+            }
         }
         holder.tv(R.id.button_21).apply {
             text = "学生管理"

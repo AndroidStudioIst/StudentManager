@@ -1,30 +1,22 @@
 package com.student.manager.iview
 
-import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
 import com.angcyo.bmob.RBmob
-import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.dialog.UIItemSelectorDialog
 import com.angcyo.uiview.dialog.UILoading
 import com.angcyo.uiview.kotlin.add
 import com.angcyo.uiview.kotlin.have
-import com.angcyo.uiview.kotlin.onSizeChanged
 import com.angcyo.uiview.kotlin.remove
 import com.angcyo.uiview.model.TitleBarItem
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.net.RLoadingSubscriber
-import com.angcyo.uiview.recycler.RBaseItemDecoration
 import com.angcyo.uiview.recycler.RBaseViewHolder
-import com.angcyo.uiview.recycler.RRecyclerView
-import com.angcyo.uiview.rsen.RefreshLayout
 import com.angcyo.uiview.skin.SkinHelper
 import com.angcyo.uiview.utils.RUtils
 import com.angcyo.uiview.utils.Tip
@@ -434,33 +426,6 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
         }
     }
 
-    override fun initRefreshLayout(refreshLayout: RefreshLayout?, baseContentLayout: ContentLayout?) {
-        super.initRefreshLayout(refreshLayout, baseContentLayout)
-        refreshLayout?.isEnabled = false
-    }
-
-    override fun initRecyclerView(recyclerView: RRecyclerView?, baseContentLayout: ContentLayout?) {
-        super.initRecyclerView(recyclerView, baseContentLayout)
-        recyclerView?.let {
-            it.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-            it.layoutManager = GridLayoutManager(mActivity, 6)
-            it.onSizeChanged { w, h, oldw, oldh ->
-                if (w > 0 && h > 0) {
-                    it.adapter?.notifyDataSetChanged()
-                }
-            }
-            it.addItemDecoration(RBaseItemDecoration(getDimensionPixelOffset(R.dimen.base_line), getColor(R.color.base_chat_bg_color)))
-        }
-    }
-
-    override fun getDefaultRequestedOrientation(): Int {
-        return ActivityInfo.SCREEN_ORIENTATION_USER
-    }
-
-    override fun getDefaultLayoutState(): LayoutState {
-        return LayoutState.LOAD
-    }
-
     private val lessonBeanList = mutableListOf<LessonBean>()
     override fun onViewShowFirst(bundle: Bundle?) {
         super.onViewShowFirst(bundle)
@@ -563,7 +528,6 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
 
     override fun showContentLayout() {
         super.showContentLayout()
-        resetUI()
         if (!UserControl.isStudent()) {
             uiTitleBarContainer.showRightItem(0)
         }
