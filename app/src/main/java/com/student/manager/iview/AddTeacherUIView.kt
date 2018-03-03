@@ -485,7 +485,9 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
             } else {
                 //先查询所有班级对应的课程
                 RBmob.query<StudentClassBean>(StudentClassBean::class.java, "") {
-                    allStudentList.addAll(it)
+                    if (!RUtils.isListEmpty(it)) {
+                        allStudentList.addAll(it)
+                    }
 
                     //在查询所有班级
                     RBmob.query<UserBean>(UserBean::class.java, "") {

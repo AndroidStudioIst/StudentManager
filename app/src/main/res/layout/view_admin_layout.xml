@@ -34,7 +34,7 @@
                 android:orientation="vertical">
 
                 <com.angcyo.uiview.widget.Button
-                    android:id="@+id/button_21"
+                    android:id="@+id/button_12"
                     style="@style/BaseSkinButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -49,7 +49,7 @@
                     android:layout_height="@dimen/base_xhdpi"/>
 
                 <com.angcyo.uiview.widget.Button
-                    android:id="@+id/button_22"
+                    android:id="@+id/button_13"
                     style="@style/BaseSkinButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -64,11 +64,42 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:orientation="horizontal">
 
             <com.angcyo.uiview.widget.Button
-                android:id="@+id/button_31"
+                android:id="@+id/button_21"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/base_ldpi"
+                android:layout_marginStart="@dimen/base_xhdpi"
+                android:layout_marginTop="@dimen/base_xhdpi"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="课程管理"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/button_22"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/base_xhdpi"
+                android:layout_marginStart="@dimen/base_ldpi"
+                android:layout_marginTop="@dimen/base_xhdpi"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="班级课程管理"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/button_32"
                 style="@style/BaseSkinButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

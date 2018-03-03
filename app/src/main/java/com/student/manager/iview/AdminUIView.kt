@@ -42,19 +42,40 @@ class AdminUIView : BaseItemUIView() {
                 startIView(CheckUIView())
             }
         }
-        holder.tv(R.id.button_21).apply {
+        holder.tv(R.id.button_12).apply {
             text = "学生管理"
             clickIt {
                 startIView(AllStudentUIView())
             }
         }
-        holder.tv(R.id.button_22).apply {
+        holder.tv(R.id.button_13).apply {
             text = "班级管理"
             clickIt {
                 startIView(AllClassUIView())
             }
         }
-        holder.tv(R.id.button_31).apply {
+//        holder.tv(R.id.button_31).apply {
+//            text = "班级课程管理"
+//            clickIt {
+//                startIView(ClassLessonUIView())
+//            }
+//        }
+
+        holder.tv(R.id.button_21).apply {
+            text = "课程管理"
+            clickIt {
+                startIView(AddLessonUIView())
+            }
+        }
+
+        holder.tv(R.id.button_22).apply {
+            text = "班级课程管理"
+            clickIt {
+                startIView(ClassLessonUIView())
+            }
+        }
+
+        holder.tv(R.id.button_32).apply {
             text = "退出登录"
             clickIt {
                 UserControl.loginUserBean = null
