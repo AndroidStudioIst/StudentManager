@@ -5,4 +5,7 @@ package com.student.manager.base
  */
 abstract class BaseSingleRecyclerUIView<T> : BaseRecyclerUIView<String, T, String>() {
 
+    override fun isUIHaveLoadMore(datas: MutableList<T>?): Boolean {
+        return false
+    }
 }

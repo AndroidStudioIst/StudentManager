@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal">
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/button_11"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/base_ldpi"
+                android:layout_marginStart="@dimen/base_xhdpi"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="考勤管理"
+                app:r_is_aeq_width="true"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.angcyo.uiview.widget.Button
+                    android:id="@+id/button_21"
+                    style="@style/BaseSkinButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/base_xhdpi"
+                    android:layout_marginStart="@dimen/base_ldpi"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="课程管理"/>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/base_xhdpi"/>
+
+                <com.angcyo.uiview.widget.Button
+                    android:id="@+id/button_22"
+                    style="@style/BaseSkinButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/base_xhdpi"
+                    android:layout_marginStart="@dimen/base_ldpi"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="班级管理"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/button_31"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/base_xhdpi"
+                android:layout_marginStart="@dimen/base_xhdpi"
+                android:layout_marginTop="@dimen/base_xhdpi"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="退出登录"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

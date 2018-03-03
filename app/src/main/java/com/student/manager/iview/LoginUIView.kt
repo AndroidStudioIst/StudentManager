@@ -62,7 +62,14 @@ class LoginUIView : BaseItemUIView() {
                                 T_.error("用户不存在或密码错误")
                             } else {
                                 Hawk.put("AUTO_LOGIN", holder.cV(R.id.auto_login_cb).isChecked)
-                                mParentILayout.replaceIView(MainUIView())
+
+                                mParentILayout.replaceIView(AdminUIView())
+//                                when (it.type) {
+//                                    3, 4 -> mParentILayout.replaceIView(AdminUIView())
+//
+//                                    else -> mParentILayout.replaceIView(MainUIView())
+//                                }
+
                             }
                         }
                     }

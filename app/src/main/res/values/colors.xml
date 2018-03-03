@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#fdbc2c</color>
-    <color name="colorPrimaryDark">#f2dfb5</color>
+    <color name="colorPrimaryDark">#f2df55</color>
     <color name="colorAccent">#fdbc2c</color>
 
     <color name="theme_color_primary">#fdbc2c</color>
-    <color name="theme_color_primary_dark">#f2dfb5</color>
+    <color name="theme_color_primary_dark">#f2df55</color>
     <color name="theme_color_accent">#fdbc2c</color>
 </resources>
