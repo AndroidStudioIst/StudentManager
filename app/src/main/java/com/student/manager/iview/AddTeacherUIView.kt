@@ -18,6 +18,7 @@ import com.angcyo.uiview.kotlin.add
 import com.angcyo.uiview.kotlin.have
 import com.angcyo.uiview.kotlin.onSizeChanged
 import com.angcyo.uiview.kotlin.remove
+import com.angcyo.uiview.model.TitleBarItem
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.net.RLoadingSubscriber
 import com.angcyo.uiview.recycler.RBaseItemDecoration
@@ -95,7 +96,7 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
     override fun getTitleBar(): TitleBarPattern {
         return super.getTitleBar()
                 .setTitleString(titleName)
-                .addRightItem(TitleBarPattern.TitleBarItem("保存") {
+                .addRightItem(TitleBarItem("保存") {
                     if (isTeacher) {
                         saveTeacher()
                     } else {

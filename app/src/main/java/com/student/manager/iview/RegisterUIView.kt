@@ -8,6 +8,7 @@ import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
 import com.angcyo.uiview.dialog.UIItemSelectorDialog
 import com.angcyo.uiview.dialog.UILoading
+import com.angcyo.uiview.model.AnimParam
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.net.RLoadingSubscriber
 import com.angcyo.uiview.recycler.RBaseViewHolder
@@ -15,8 +16,8 @@ import com.angcyo.uiview.resources.AnimUtil
 import com.angcyo.uiview.utils.T_
 import com.angcyo.uiview.utils.Tip
 import com.angcyo.uiview.widget.ExEditText
-import com.student.manager.base.BaseItemUIView
 import com.student.manager.R
+import com.student.manager.base.BaseItemUIView
 import com.student.manager.bean.UserBean
 import com.student.manager.control.UserControl
 
@@ -139,20 +140,20 @@ class RegisterUIView : BaseItemUIView() {
         })
     }
 
-    override fun loadStartAnimation(): Animation {
+    override fun loadStartAnimation(animParam: AnimParam): Animation {
         return AnimUtil.translateStartAnimation()
     }
 
-    override fun loadFinishAnimation(): Animation {
+    override fun loadFinishAnimation(animParam: AnimParam): Animation {
         return AnimUtil.translateFinishAnimation()
     }
 
-    override fun loadOtherEnterAnimation(): Animation? {
+    override fun loadOtherEnterAnimation(animParam: AnimParam): Animation? {
         return null
     }
 
 
-    override fun loadOtherExitAnimation(): Animation? {
+    override fun loadOtherExitAnimation(animParam: AnimParam): Animation? {
         return null
     }
 }

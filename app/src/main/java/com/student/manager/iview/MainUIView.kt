@@ -37,7 +37,7 @@ class MainUIView : BaseContentUIView() {
                     4 -> "超级管理员 ${UserControl.loginUserBean!!.name}"
                     else -> "${UserControl.loginUserBean!!.className} ${UserControl.loginUserBean!!.name}"
                 })
-//                .addRightItem(TitleBarPattern.TitleBarItem("+") {
+//                .addRightItem(TitleBarItem("+") {
 //                    startIView(MainUIView())
 //                })
     }
