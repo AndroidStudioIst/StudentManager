@@ -33,10 +33,10 @@ import com.student.manager.bean.LessonBean
  * 修改备注：
  * Version: 1.0.0
  */
-class AddLessonUIView : BaseSingleRecyclerUIView<LessonBean>() {
+class AddLessonUIView(val isSee: Boolean = false) : BaseSingleRecyclerUIView<LessonBean>() {
 
     override fun getTitleBar(): TitleBarPattern {
-        return super.getTitleBar().setTitleString("添加课程")
+        return super.getTitleBar().setTitleString(if (isSee) "课程查看" else "添加课程")
     }
 
     override fun createAdapter(): RExBaseAdapter<String, LessonBean, String> = object : RBaseSwipeAdapter<String, LessonBean, String>(mActivity) {
@@ -55,9 +55,9 @@ class AddLessonUIView : BaseSingleRecyclerUIView<LessonBean>() {
 
         override fun onBindMenuView(menuBuilder: MenuBuilder, viewType: Int, position: Int) {
             super.onBindMenuView(menuBuilder, viewType, position)
-            if (!isLast(position)) {
+            if (!isLast(position) && !isSee) {
                 menuBuilder.addMenu("删除", Color.RED) {
-//                    RBmob.delete<LessonBean>("name:${allDatas[position].name}") {
+                    //                    RBmob.delete<LessonBean>("name:${allDatas[position].name}") {
 //                        T_.info("删除完成")
 //                    }
 
@@ -125,7 +125,9 @@ class AddLessonUIView : BaseSingleRecyclerUIView<LessonBean>() {
             it.addItemDecoration(RExItemDecoration(object : RExItemDecoration.SingleItemCallback() {
                 override fun getItemOffsets2(outRect: Rect, position: Int, edge: Int) {
                     super.getItemOffsets2(outRect, position, edge)
-                    if (position < mExBaseAdapter.itemCount - 2) {
+                    if (isSee) {
+                        outRect.bottom = getDimensionPixelOffset(R.dimen.base_line)
+                    } else if (position < mExBaseAdapter.itemCount - 2) {
                         outRect.bottom = getDimensionPixelOffset(R.dimen.base_line)
                     }
                 }
@@ -152,7 +154,7 @@ class AddLessonUIView : BaseSingleRecyclerUIView<LessonBean>() {
             add(findObjects(object : FindListener<LessonBean>() {
                 override fun done(p0: MutableList<LessonBean>?, p1: BmobException?) {
                     onUILoadFinish(p0)
-                    if (page == 1) {
+                    if (page == 1 && !isSee) {
                         mExBaseAdapter.resetFooterData("")
                     }
                 }

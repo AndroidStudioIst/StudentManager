@@ -25,6 +25,16 @@ class AdminUIView : BaseItemUIView() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 when (UserControl.loginUserBean!!.type) {
                     3, 4 -> loadAdminLayout(holder)
+                    1 -> loadStudentLayout(holder)
+                }
+
+                holder.tv(R.id.button_32).apply {
+                    text = "退出登录"
+                    clickIt {
+                        UserControl.loginUserBean = null
+                        Hawk.put("AUTO_LOGIN", false)
+                        replaceIView(LoginUIView())
+                    }
                 }
             }
 
@@ -33,6 +43,31 @@ class AdminUIView : BaseItemUIView() {
             }
 
         })
+    }
+
+    private fun loadStudentLayout(holder: RBaseViewHolder) {
+        holder.tv(R.id.button_11).apply {
+            text = "扫码考勤"
+            clickIt {
+                startIView(CheckUIView())
+            }
+        }
+
+        holder.tv(R.id.button_12).apply {
+            text = "课程查看"
+            clickIt {
+                startIView(AddLessonUIView(true))
+            }
+        }
+
+        holder.tv(R.id.button_13).apply {
+            text = "班级课程查看"
+            clickIt {
+                startIView(ClassLessonUIView())
+            }
+        }
+
+        holder.gone(R.id.layout_2)
     }
 
     private fun loadAdminLayout(holder: RBaseViewHolder) {
@@ -72,15 +107,6 @@ class AdminUIView : BaseItemUIView() {
             text = "班级课程管理"
             clickIt {
                 startIView(ClassLessonUIView())
-            }
-        }
-
-        holder.tv(R.id.button_32).apply {
-            text = "退出登录"
-            clickIt {
-                UserControl.loginUserBean = null
-                Hawk.put("AUTO_LOGIN", false)
-                replaceIView(LoginUIView())
             }
         }
     }

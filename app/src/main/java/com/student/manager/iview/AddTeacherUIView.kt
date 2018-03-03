@@ -222,13 +222,18 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
             }
         } else {
             if (UserControl.isStudent()) {
+                onBindStudentClassView(holder, position)
             } else {
                 initStudent(holder, position)
             }
         }
     }
 
-    private fun initStudent(holder: RBaseViewHolder, position: Int) {
+    open fun onBindStudentClassView(holder: RBaseViewHolder, position: Int) {
+
+    }
+
+    protected fun initStudent(holder: RBaseViewHolder, position: Int) {
         if (checkEmptyClass() || TextUtils.isEmpty(selectorClassName)) {
             return
         }
@@ -504,7 +509,7 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
         }
     }
 
-    private fun checkEmptyClass(): Boolean {
+    protected open fun checkEmptyClass(): Boolean {
         if (RUtils.isListEmpty(allClassList)) {
             Tip.tip("暂无班级可编辑")
             return true
@@ -517,7 +522,7 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
         showContentLayout()
     }
 
-    private fun getStudentOfClass(className: String): StudentClassBean? {
+    protected fun getStudentOfClass(className: String): StudentClassBean? {
         var result: StudentClassBean? = null
         for (bean in allStudentList) {
             if (TextUtils.equals(bean.name, className)) {
