@@ -233,7 +233,7 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
 
     }
 
-    protected fun initStudent(holder: RBaseViewHolder, position: Int) {
+    protected open fun initStudent(holder: RBaseViewHolder, position: Int) {
         if (checkEmptyClass() || TextUtils.isEmpty(selectorClassName)) {
             return
         }
@@ -431,7 +431,7 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
         }
     }
 
-    private val lessonBeanList = mutableListOf<LessonBean>()
+    protected val lessonBeanList = mutableListOf<LessonBean>()
     override fun onViewShowFirst(bundle: Bundle?) {
         super.onViewShowFirst(bundle)
     }
