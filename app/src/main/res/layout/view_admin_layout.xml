@@ -94,6 +94,27 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout__3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/button__31"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/base_xhdpi"
+                android:layout_marginStart="@dimen/base_xhdpi"
+                android:layout_marginTop="@dimen/base_xhdpi"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="查看考勤情况"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/layout_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,7 +124,7 @@
                 android:id="@+id/button_32"
                 style="@style/BaseSkinButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginEnd="@dimen/base_xhdpi"
                 android:layout_marginStart="@dimen/base_xhdpi"
                 android:layout_marginTop="@dimen/base_xhdpi"

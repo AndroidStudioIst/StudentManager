@@ -115,7 +115,7 @@ class RegisterUIView : BaseItemUIView() {
                                                 Tip.tip("注册成功")
                                                 UserControl.loginUserBean = this@apply
                                                 mParentILayout.finishIView(LoginUIView::class.java)
-                                                mParentILayout.replaceIView(MainUIView())
+                                                mParentILayout.replaceIView(AdminUIView())
                                             }
 
                                             override fun onError(code: Int, msg: String?) {

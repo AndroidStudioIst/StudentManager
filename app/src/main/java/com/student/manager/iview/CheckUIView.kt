@@ -1,30 +1,172 @@
 package com.student.manager.iview
 
+import android.graphics.Color
+import android.text.TextUtils
+import com.angcyo.bmob.RBmob
+import com.angcyo.uiview.dialog.UIItemSelectorDialog
+import com.angcyo.uiview.kotlin.stringSize
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.recycler.RBaseViewHolder
+import com.angcyo.uiview.skin.SkinHelper
+import com.angcyo.uiview.utils.RUtils
+import com.angcyo.uiview.utils.Tip
+import com.student.manager.R
 import com.student.manager.bean.CheckBean
+import com.student.manager.bean.UserBean
 
 /**
  * 考勤管理
  * Created by angcyo on 2018-03-03.
  */
 
-class CheckUIView : BaseClassUIView<CheckBean>() {
+class CheckUIView : TeacherCheckUIView() {
 
     override fun getTitleBar(): TitleBarPattern {
         return super.getTitleBar().setTitleString("考勤管理")
     }
 
-    override fun onBindFirstView(holder: RBaseViewHolder, position: Int, bean: CheckBean?) {
-        super.onBindFirstView(holder, position, bean)
+    //所有用户
+    val allUserList = mutableListOf<UserBean>()
+
+    //班级考勤情况
+    val allCheckList = mutableListOf<CheckBean>()
+
+    override fun onUILoadData(page: Int) {
+        super.onUILoadData(page)
     }
 
-    override fun onBindClassView(holder: RBaseViewHolder, position: Int, bean: CheckBean?) {
-        super.onBindClassView(holder, position, bean)
+    override fun onShowContentData() {
+        //super.onShowContentData()
+        //查询所有学生
+        RBmob.query<UserBean>(UserBean::class.java, "") {
+            if (!RUtils.isListEmpty(it)) {
+                allUserList.addAll(it)
+            }
+
+            //所有考勤情况
+            RBmob.query<CheckBean>(CheckBean::class.java, "") {
+                if (!RUtils.isListEmpty(it)) {
+                    allCheckList.addAll(it)
+                }
+                super.onShowContentData()
+            }
+        }
     }
 
-    override fun onUILoadData(page: Int, extend: String?) {
-        super.onUILoadData(page, extend)
-        showContentLayout()
+    private fun getUserName(objectId: String): String {
+        for (bean in allUserList) {
+            if (TextUtils.equals(bean.objectId, objectId)) {
+                return bean.name
+            }
+        }
+        return ""
     }
+
+    private fun getCurrentCheckBean(): CheckBean {
+        for (bean in allCheckList) {
+            if (TextUtils.equals(bean.name, selectorClassName)) {
+                return bean
+            }
+        }
+        return CheckBean()
+    }
+
+    override fun initStudent(holder: RBaseViewHolder, position: Int) {
+        //super.initStudent(holder, position)
+        if (checkEmptyClass() || TextUtils.isEmpty(selectorClassName)) {
+            return
+        }
+
+        val rowIndex = position / 6 - 1//横向第几行
+
+        fun setBg(list: List<String>, count: Int) {
+            if (list[rowIndex].isEmpty()) {
+                holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+                holder.tv(R.id.text_view).text = ""
+            } else {
+                holder.itemView.setBackgroundColor(SkinHelper.getSkin().themeSubColor)
+                holder.tv(R.id.text_view).text = "${count}人 ${list[rowIndex]}"
+                holder.tv(R.id.text_view).setTextColor(Color.WHITE)
+            }
+        }
+
+        val checkBean = getCurrentCheckBean()
+
+        fun toCode(users: String) {
+            //startIView(CodeUIView(studentClassBean, lessonName, "$position"))
+            val userNameList = mutableListOf<String>()
+            var list = RUtils.split(users, ":", false)
+            for (u in list) {
+                userNameList.add(getUserName(u))
+            }
+
+            if (userNameList.isEmpty()) {
+                Tip.tip("暂无学生打卡")
+            } else {
+                startIView(UIItemSelectorDialog(userNameList).apply {
+                    titleString = "以下学生已打卡"
+                })
+            }
+        }
+
+        when (position.rem(6)) {
+            1 -> {//周一
+                val wList = studentClassBean.w1List()
+                val users = checkBean.w1List()[rowIndex]
+                setBg(wList, RUtils.split(users, ":", false).stringSize(true))
+                holder.clickItem {
+                    if (isSeeClass || wList[rowIndex].isEmpty()) {
+                        return@clickItem
+                    }
+                    toCode(users)
+                }
+            }
+            2 -> {
+                val wList = studentClassBean.w2List()
+                val users = checkBean.w2List()[rowIndex]
+                setBg(wList, RUtils.split(users, ":", false).stringSize(true))
+                holder.clickItem {
+                    if (isSeeClass || wList[rowIndex].isEmpty()) {
+                        return@clickItem
+                    }
+                    toCode(users)
+                }
+            }
+            3 -> {
+                val wList = studentClassBean.w3List()
+                val users = checkBean.w3List()[rowIndex]
+                setBg(wList, RUtils.split(users, ":", false).stringSize(true))
+                holder.clickItem {
+                    if (isSeeClass || wList[rowIndex].isEmpty()) {
+                        return@clickItem
+                    }
+                    toCode(users)
+                }
+            }
+            4 -> {
+                val wList = studentClassBean.w4List()
+                val users = checkBean.w4List()[rowIndex]
+                setBg(wList, RUtils.split(users, ":", false).stringSize(true))
+                holder.clickItem {
+                    if (isSeeClass || wList[rowIndex].isEmpty()) {
+                        return@clickItem
+                    }
+                    toCode(users)
+                }
+            }
+            5 -> {
+                val wList = studentClassBean.w5List()
+                val users = checkBean.w5List()[rowIndex]
+                setBg(wList, RUtils.split(users, ":", false).stringSize(true))
+                holder.clickItem {
+                    if (isSeeClass || wList[rowIndex].isEmpty()) {
+                        return@clickItem
+                    }
+                    toCode(users)
+                }
+            }
+        }
+    }
+
+
 }

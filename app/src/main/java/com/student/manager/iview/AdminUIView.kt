@@ -1,5 +1,6 @@
 package com.student.manager.iview
 
+import android.text.TextUtils
 import com.angcyo.uiview.RCrashHandler
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
@@ -66,7 +67,13 @@ class AdminUIView : BaseItemUIView() {
                         val code = RUtils.decode(it)
 
                         if (code.contains("扫码考勤8888")) {
-                            startIView(ScanResultUIView(code))
+                            val split = RUtils.split(code, ":")
+                            val className = split[0].split(",")[1]
+                            if (TextUtils.equals(className, UserControl.loginUserBean!!.className)) {
+                                startIView(ScanResultUIView(code))
+                            } else {
+                                Tip.tip("与考勤班级不匹配")
+                            }
                         } else {
                             Tip.tip("无效的考勤码")
                         }
@@ -112,6 +119,11 @@ class AdminUIView : BaseItemUIView() {
             }
         }
         holder.gone(R.id.layout_2)
+        holder.visible(R.id.layout__3)
+
+        holder.click(R.id.button__31) {
+            startIView(CheckUIView())
+        }
     }
 
 
