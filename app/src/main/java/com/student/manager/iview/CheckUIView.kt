@@ -13,6 +13,7 @@ import com.angcyo.uiview.utils.Tip
 import com.student.manager.R
 import com.student.manager.bean.CheckBean
 import com.student.manager.bean.UserBean
+import com.student.manager.control.UserControl
 
 /**
  * 考勤管理
@@ -22,7 +23,11 @@ import com.student.manager.bean.UserBean
 class CheckUIView : TeacherCheckUIView() {
 
     override fun getTitleBar(): TitleBarPattern {
-        return super.getTitleBar().setTitleString("考勤管理")
+        return super.getTitleBar().setTitleString(if (UserControl.loginUserBean!!.type == 1) {
+            "个人考勤情况"
+        } else {
+            "考勤管理"
+        })
     }
 
     //所有用户
@@ -53,6 +58,7 @@ class CheckUIView : TeacherCheckUIView() {
         }
     }
 
+    /**根据用户id, 返回对应的用户名*/
     private fun getUserName(objectId: String): String {
         for (bean in allUserList) {
             if (TextUtils.equals(bean.objectId, objectId)) {
@@ -79,19 +85,31 @@ class CheckUIView : TeacherCheckUIView() {
 
         val rowIndex = position / 6 - 1//横向第几行
 
-        fun setBg(list: List<String>, count: Int) {
+        /*设置背景色*/
+        fun setBg(list: List<String>, count: Int, users: String /*那些学生打卡了*/) {
             if (list[rowIndex].isEmpty()) {
                 holder.itemView.setBackgroundColor(Color.TRANSPARENT)
                 holder.tv(R.id.text_view).text = ""
             } else {
-                holder.itemView.setBackgroundColor(SkinHelper.getSkin().themeSubColor)
-                holder.tv(R.id.text_view).text = "${count}人 ${list[rowIndex]}"
                 holder.tv(R.id.text_view).setTextColor(Color.WHITE)
+
+                if (isStudentSeeCheck()) {
+                    holder.tv(R.id.text_view).text = if (users.contains(UserControl.loginUserBean!!.objectId)) {
+                        holder.itemView.setBackgroundColor(SkinHelper.getSkin().themeSubColor)
+                        "已打卡 ${list[rowIndex]}"
+                    } else {
+                        holder.itemView.setBackgroundColor(getColor(R.color.base_dark_red_tran))
+                        "缺席 ${list[rowIndex]}"
+                    }
+                } else {
+                    holder.tv(R.id.text_view).text = "${count}人 ${list[rowIndex]}"
+                }
             }
         }
 
         val checkBean = getCurrentCheckBean()
 
+        /*显示打卡人数*/
         fun toCode(users: String) {
             //startIView(CodeUIView(studentClassBean, lessonName, "$position"))
             val userNameList = mutableListOf<String>()
@@ -113,7 +131,7 @@ class CheckUIView : TeacherCheckUIView() {
             1 -> {//周一
                 val wList = studentClassBean.w1List()
                 val users = checkBean.w1List()[rowIndex]
-                setBg(wList, RUtils.split(users, ":", false).stringSize(true))
+                setBg(wList, RUtils.split(users, ":", false).stringSize(true), users)
                 holder.clickItem {
                     if (isSeeClass || wList[rowIndex].isEmpty()) {
                         return@clickItem
@@ -124,7 +142,7 @@ class CheckUIView : TeacherCheckUIView() {
             2 -> {
                 val wList = studentClassBean.w2List()
                 val users = checkBean.w2List()[rowIndex]
-                setBg(wList, RUtils.split(users, ":", false).stringSize(true))
+                setBg(wList, RUtils.split(users, ":", false).stringSize(true), users)
                 holder.clickItem {
                     if (isSeeClass || wList[rowIndex].isEmpty()) {
                         return@clickItem
@@ -135,7 +153,7 @@ class CheckUIView : TeacherCheckUIView() {
             3 -> {
                 val wList = studentClassBean.w3List()
                 val users = checkBean.w3List()[rowIndex]
-                setBg(wList, RUtils.split(users, ":", false).stringSize(true))
+                setBg(wList, RUtils.split(users, ":", false).stringSize(true), users)
                 holder.clickItem {
                     if (isSeeClass || wList[rowIndex].isEmpty()) {
                         return@clickItem
@@ -146,7 +164,7 @@ class CheckUIView : TeacherCheckUIView() {
             4 -> {
                 val wList = studentClassBean.w4List()
                 val users = checkBean.w4List()[rowIndex]
-                setBg(wList, RUtils.split(users, ":", false).stringSize(true))
+                setBg(wList, RUtils.split(users, ":", false).stringSize(true), users)
                 holder.clickItem {
                     if (isSeeClass || wList[rowIndex].isEmpty()) {
                         return@clickItem
@@ -157,7 +175,7 @@ class CheckUIView : TeacherCheckUIView() {
             5 -> {
                 val wList = studentClassBean.w5List()
                 val users = checkBean.w5List()[rowIndex]
-                setBg(wList, RUtils.split(users, ":", false).stringSize(true))
+                setBg(wList, RUtils.split(users, ":", false).stringSize(true), users)
                 holder.clickItem {
                     if (isSeeClass || wList[rowIndex].isEmpty()) {
                         return@clickItem
@@ -166,6 +184,11 @@ class CheckUIView : TeacherCheckUIView() {
                 }
             }
         }
+    }
+
+    /*是否是学生自己查看自己的考勤情况*/
+    private fun isStudentSeeCheck(): Boolean {
+        return UserControl.isStudent() && isSeeClass
     }
 
 

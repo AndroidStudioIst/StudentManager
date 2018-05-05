@@ -97,6 +97,13 @@ class AdminUIView : BaseItemUIView() {
         }
 
         holder.gone(R.id.layout_2)
+
+        //2018-5-5
+        holder.visible(R.id.layout__3)
+
+        holder.click(R.id.button__31) {
+            startIView(CheckUIView())
+        }
     }
 
     private fun loadTeacherLayout(holder: RBaseViewHolder) {
