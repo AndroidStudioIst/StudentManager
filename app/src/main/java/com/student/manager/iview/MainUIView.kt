@@ -46,7 +46,7 @@ class MainUIView : BaseContentUIView() {
         return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.activity_main)
     }
 

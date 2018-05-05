@@ -1,8 +1,7 @@
 include ':app'
 include ':RBmob'
 
-include ':RLibrary:uiview'
-include ':RLibrary:library'
+apply from: './RLibrary/settings.gradle'
+
 include ':RLibrary:rcode'
-include ':RLibrary:github'
 include ':RLibrary:zxingzbar'
