@@ -38,7 +38,7 @@ object UserControl {
     fun isAdmin() = if (loginUserBean == null) {
         false
     } else {
-        loginUserBean!!.type == 3
+        loginUserBean!!.type >= 3
     }
 
     /**判断用户是否存在*/

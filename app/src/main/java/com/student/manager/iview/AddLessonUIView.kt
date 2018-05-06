@@ -143,9 +143,8 @@ class AddLessonUIView(val isSee: Boolean = false) : BaseSingleRecyclerUIView<Les
         return false
     }
 
-    override fun onUILoadEmpty() {
-        //super.onUILoadEmpty()
-        showContentLayout()
+    override fun isUIDataEmpty(page: Int, datas: MutableList<LessonBean>?): Boolean {
+        return false
     }
 
     override fun onUILoadData(page: Int) {

@@ -21,10 +21,10 @@ import com.angcyo.uiview.skin.SkinHelper
 import com.angcyo.uiview.utils.RUtils
 import com.angcyo.uiview.utils.Tip
 import com.student.manager.R
+import com.student.manager.bean.ClassBean
 import com.student.manager.bean.LessonBean
 import com.student.manager.bean.StudentClassBean
 import com.student.manager.bean.TeacherBean
-import com.student.manager.bean.UserBean
 import com.student.manager.control.UserControl
 
 /**
@@ -57,7 +57,8 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
     var allStudentList = mutableListOf<StudentClassBean>()
 
     //所有班级列表
-    var allClassList = mutableListOf<String>()
+    var allClassList = mutableListOf<ClassBean>()
+
     /*选择的班级*/
     var selectorClassName = ""
 
@@ -194,7 +195,7 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
                 if (!checkEmptyClass()) {
                     startIView(UIItemSelectorDialog(allClassList).apply {
                         onItemSelector = { _, bean ->
-                            selectorClassName = bean
+                            selectorClassName = bean.name
 
                             val studentOfClass = getStudentOfClass(selectorClassName)
                             if (studentOfClass == null) {
@@ -465,12 +466,8 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
                             allStudentList.addAll(it)
 
                             //在查询所有班级
-                            RBmob.query<UserBean>(UserBean::class.java, "") {
-                                for (bean in it) {
-                                    if (!TextUtils.isEmpty(bean.className) && !allClassList.contains(bean.className)) {
-                                        allClassList.add(bean.className)
-                                    }
-                                }
+                            AllClassUIView.getAllClass {
+                                allClassList.addAll(it)
                                 onShowContentData()
                             }
                         }
@@ -495,12 +492,8 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
                     }
 
                     //在查询所有班级
-                    RBmob.query<UserBean>(UserBean::class.java, "") {
-                        for (bean in it) {
-                            if (!TextUtils.isEmpty(bean.className) && !allClassList.contains(bean.className)) {
-                                allClassList.add(bean.className)
-                            }
-                        }
+                    AllClassUIView.getAllClass {
+                        allClassList.addAll(it)
                         checkEmptyClass()
                         onShowContentData()
                     }
