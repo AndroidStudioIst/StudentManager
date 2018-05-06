@@ -14,12 +14,16 @@ import com.angcyo.uiview.rsen.RefreshLayout
 import com.angcyo.uiview.utils.UI
 import com.student.manager.R
 import com.student.manager.base.BaseSingleRecyclerUIView
+import com.student.manager.bean.UserBean
 import com.student.manager.control.UserControl
 
 /**
  * Created by angcyo on 2018-02-25.
  */
 abstract class BaseClassUIView<T> : BaseSingleRecyclerUIView<T>() {
+
+    var isStudentSeeCheckIt = false
+    var studentSeeBean: UserBean? = null
 
     override fun initRefreshLayout(refreshLayout: RefreshLayout?, baseContentLayout: ContentLayout?) {
         super.initRefreshLayout(refreshLayout, baseContentLayout)
@@ -80,7 +84,12 @@ abstract class BaseClassUIView<T> : BaseSingleRecyclerUIView<T>() {
         when (position) {
             0 -> {
                 holder.itemView.setBackgroundColor(getColor(R.color.base_chat_bg_color))
-                holder.tv(R.id.text_view).text = UserControl.loginUserBean!!.name
+
+                if (isStudentSeeCheckIt) {
+                    holder.tv(R.id.text_view).text = studentSeeBean!!.className
+                } else {
+                    holder.tv(R.id.text_view).text = UserControl.loginUserBean!!.name
+                }
 
                 onBindFirstView(holder, position, bean)
             }

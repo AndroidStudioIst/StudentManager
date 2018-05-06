@@ -54,6 +54,14 @@ class AllClassUIView : BaseSingleRecyclerUIView<ClassBean>() {
 
             dataBean?.let {
                 holder.tv(R.id.base_text_view).text = "${it.name} (${it.userBeanList.size}人)"
+
+                if (UserControl.isAdmin() || UserControl.isTeacher()) {
+                    holder.clickItem {
+                        startIView(CheckUIView().apply {
+                            selectorClassName = dataBean.name
+                        })
+                    }
+                }
             }
         }
 
@@ -155,6 +163,7 @@ class AllClassUIView : BaseSingleRecyclerUIView<ClassBean>() {
         super.onUILoadData(page, extend)
 
         getAllClass {
+            classList.clear()
             classList.addAll(it)
 
             onUILoadFinish(classList)

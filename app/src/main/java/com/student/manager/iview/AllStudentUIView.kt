@@ -15,6 +15,7 @@ import com.angcyo.uiview.recycler.adapter.RExBaseAdapter
 import com.student.manager.R
 import com.student.manager.base.BaseSingleRecyclerUIView
 import com.student.manager.bean.UserBean
+import com.student.manager.control.UserControl
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -47,6 +48,20 @@ class AllStudentUIView : BaseSingleRecyclerUIView<UserBean>() {
             holder.tv(R.id.base_text_view).text = dataBean!!.name
             holder.tv(R.id.base_text_view2).text = dataBean!!.className
             holder.visible(R.id.base_text_view2)
+
+            if (UserControl.isAdmin() || UserControl.isTeacher()) {
+                holder.clickItem {
+                    startIView(CheckUIView().apply {
+                        studentSeeBean = dataBean
+                        selectorClassName = dataBean.className
+
+                        isStudentSeeCheckIt = true
+                        isSeeClass = true
+                        isAddClass = false
+                        isTeacher = false
+                    })
+                }
+            }
         }
     }
 

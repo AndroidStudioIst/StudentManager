@@ -38,7 +38,7 @@ import com.student.manager.control.UserControl
  * 修改备注：
  * Version: 1.0.0
  */
-open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<TeacherBean>() {
+open class AddTeacherUIView(var isTeacher: Boolean = true) : BaseClassUIView<TeacherBean>() {
 
     //只是查看班级列表
     var isSeeClass = false
@@ -467,6 +467,7 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
 
                             //在查询所有班级
                             AllClassUIView.getAllClass {
+                                allClassList.clear()
                                 allClassList.addAll(it)
                                 onShowContentData()
                             }
@@ -477,8 +478,14 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
                 }
             })
         } else {
-            if (UserControl.isStudent()) {
-                RBmob.query<StudentClassBean>(StudentClassBean::class.java, "name:${UserControl.loginUserBean!!.className}") {
+            if (UserControl.isStudent() || isStudentSeeCheckIt) {
+                val name = if (isStudentSeeCheckIt) {
+                    studentSeeBean!!.className
+                } else {
+                    UserControl.loginUserBean!!.className
+                }
+
+                RBmob.query<StudentClassBean>(StudentClassBean::class.java, "name:$name") {
                     if (!RUtils.isListEmpty(it)) {
                         studentClassBean = it.first()
                     }
@@ -489,10 +496,18 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
                 RBmob.query<StudentClassBean>(StudentClassBean::class.java, "") {
                     if (!RUtils.isListEmpty(it)) {
                         allStudentList.addAll(it)
+
+                        //默认选中的班级
+                        if (!selectorClassName.isEmpty()) {
+                            getStudentOfClass(selectorClassName)?.let {
+                                studentClassBean = it
+                            }
+                        }
                     }
 
                     //在查询所有班级
                     AllClassUIView.getAllClass {
+                        allClassList.clear()
                         allClassList.addAll(it)
                         checkEmptyClass()
                         onShowContentData()
@@ -503,6 +518,10 @@ open class AddTeacherUIView(val isTeacher: Boolean = true) : BaseClassUIView<Tea
     }
 
     protected open fun checkEmptyClass(): Boolean {
+        if (isStudentSeeCheckIt) {
+            return false
+        }
+
         if (RUtils.isListEmpty(allClassList)) {
             Tip.tip("暂无班级可编辑")
             return true

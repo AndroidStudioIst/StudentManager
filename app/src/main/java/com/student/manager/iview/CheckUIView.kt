@@ -26,7 +26,11 @@ class CheckUIView : TeacherCheckUIView() {
         return super.getTitleBar().setTitleString(if (UserControl.loginUserBean!!.type == 1) {
             "个人考勤情况"
         } else {
-            "考勤管理"
+            if (isStudentSeeCheckIt) {
+                "${studentSeeBean!!.name} 考勤情况"
+            } else {
+                "考勤管理"
+            }
         })
     }
 
@@ -35,10 +39,6 @@ class CheckUIView : TeacherCheckUIView() {
 
     //班级考勤情况
     val allCheckList = mutableListOf<CheckBean>()
-
-    override fun onUILoadData(page: Int) {
-        super.onUILoadData(page)
-    }
 
     override fun onShowContentData() {
         //super.onShowContentData()
@@ -94,7 +94,13 @@ class CheckUIView : TeacherCheckUIView() {
                 holder.tv(R.id.text_view).setTextColor(Color.WHITE)
 
                 if (isStudentSeeCheck()) {
-                    holder.tv(R.id.text_view).text = if (users.contains(UserControl.loginUserBean!!.objectId)) {
+                    val objectId = if (isStudentSeeCheckIt) {
+                        studentSeeBean!!.objectId
+                    } else {
+                        UserControl.loginUserBean!!.objectId
+                    }
+
+                    holder.tv(R.id.text_view).text = if (users.contains(objectId)) {
                         holder.itemView.setBackgroundColor(SkinHelper.getSkin().themeSubColor)
                         "已打卡 ${list[rowIndex]}"
                     } else {
@@ -102,6 +108,7 @@ class CheckUIView : TeacherCheckUIView() {
                         "缺席 ${list[rowIndex]}"
                     }
                 } else {
+                    holder.itemView.setBackgroundColor(SkinHelper.getSkin().themeSubColor)
                     holder.tv(R.id.text_view).text = "${count}人 ${list[rowIndex]}"
                 }
             }
@@ -188,8 +195,6 @@ class CheckUIView : TeacherCheckUIView() {
 
     /*是否是学生自己查看自己的考勤情况*/
     private fun isStudentSeeCheck(): Boolean {
-        return UserControl.isStudent() && isSeeClass
+        return (UserControl.isStudent() && isSeeClass) || isStudentSeeCheckIt
     }
-
-
 }
